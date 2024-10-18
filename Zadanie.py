@@ -12,7 +12,7 @@
 
 #3 a)
 #age = int(input("Wprowadz swoj wiek: "))
-#if age >=18 and 100:
+#if 18 <= age <= 100:
 #    print("Autoryzacja uzyskana")
 #else: print("Odmowa")
 
@@ -32,7 +32,7 @@
 
 #d)
 #a = int(input("Podaj liczbe : "))
-#if a > (a+1):
+#if a %2 ==0:
 #    print("Jest przysta")
 #else: print ("Jest nie parzysta")
 
@@ -56,11 +56,11 @@
 #a = int(input("Podaj liczbę całkowitą: "))
 #if a % 3 == 0 and a % 5 == 0:
 #    print("Liczba jest podzielna przez 3 oraz 5")
-#if a % 3 == 0 and a % 5 !=0:
+#elif a % 3 == 0:
 #    print("Liczbna jest podzielna przez 3 ale nie przez 5")
-#if a % 3 !=0 and a % 5 == 0:
+#elif a % 5 == 0:
 #    print("Liczba nie jest podzielna przez 3 ale jest przez 5")
-#if a % 3 != 0 and a % 5 != 0:
+#else:
 #    print("Liczba nie jest podzielna przez 3 ani 5")
 
 #h)
@@ -97,24 +97,8 @@
 #if  x**2 + y**2 == z**2:
 #    print("Liczby stanowią trojkę pitagorejska")
 #elif x**2 + z**2 == y**2:
-#    print("Liczby stanowią trojkę pitagorejska")
-#elif y**2 + x**2 == z**2:
-#    print("Liczby stanowią trojkę pitagorejska")
+#    print("Liczby stanowią trojkę pitagorejska"))
 #elif y**2 + z++2 == x**2:
 #    print("Liczby stanowią trojkę pitagorejska")
-#elif z**2 + x**2 == y**2:
-#    print("Liczby stanowią trojkę pitagorejska")
-#elif z**2 + y**2 == x**2:
-#    print("Liczby stanowią trojkę pitagorejska")
-#elif  x**2 + y**2 != z**2:
-#    print("Liczby nie stanowi trojke pitagorejska")
-#elif x**2 + z**2 != y**2:
-#    print("Liczby nie stanowi trojkę pitagorejska")
-#elif y**2 + x**2 != z**2:
-#    print("Liczby nie stanowi trojkę pitagorejska")
-#elif y**2 + z++2 != x**2:
-#    print("Liczby nie stanowi trojkę pitagorejska")
-#elif z**2 + x**2 != y**2:
-#    print("Liczby nie stanowi trojkę pitagorejska")
-#elif z**2 + y**2 != x**2:
+#else:
 #    print("Liczby nie stanowi trojkę pitagorejska")

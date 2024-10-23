@@ -1,0 +1,225 @@
+1.
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| dziemianczykf      |
+| information_schema |
++--------------------+
+mysql> use dziemianczykf
+Database changed
+mysql> CREATE TABLE Pracownik(pracownikID int AUTO_INCREMENT, Nazwisko varchar(3                                                                                                                                                             0)NOT NULL, Imie varchar(25), nrTelefonu varchar(12), PRIMARY KEY (pracownikID))                                                                                                                                                             ;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DESC Pracownik
+    -> ;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| pracownikID | int         | NO   | PRI | NULL    | auto_increment |
+| Nazwisko    | varchar(30) | NO   |     | NULL    |                |
+| Imie        | varchar(25) | YES  |     | NULL    |                |
+| nrTelefonu  | varchar(12) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+2.
+mysql> CREATE TABLE Stanowisko (IDStanowisko int AUTO_INCREMENT, Nazwa varchar(30) NOT NULL, PRIMARY KEY (IDStanowisko));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> DESC Stanowisko
+    -> ;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| IDStanowisko | int         | NO   | PRI | NULL    | auto_increment |
+| Nazwa        | varchar(30) | NO   |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+3.
+mysql> CREATE TABLE Pracownik1 (pracownikID int AUTO_INCREMENT, Nazwisko varchar(30) NOT NULL, Imie varchar(25), Stanowisko int, PRIMARY KEY(pracownikID), FOREIGN KEY (Stanowisko) REFERENCES Stanowisko(IDStanowisko));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> DESC Stanowisko
+    -> ;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| IDStanowisko | int         | NO   | PRI | NULL    | auto_increment |
+| Nazwa        | varchar(30) | NO   |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+
+mysql> DESC Pracownik1
+    -> ;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| pracownikID | int         | NO   | PRI | NULL    | auto_increment |
+| Nazwisko    | varchar(30) | NO   |     | NULL    |                |
+| Imie        | varchar(25) | YES  |     | NULL    |                |
+| Stanowisko  | int         | YES  | MUL | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+4.
+mysql> INSERT INTO Pracownik1 (Nazwisko, Imie) VALUES ('Nowak', 'Jan');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DESC Pracownik1
+    -> ;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| pracownikID | int         | NO   | PRI | NULL    | auto_increment |
+| Nazwisko    | varchar(30) | NO   |     | NULL    |                |
+| Imie        | varchar(25) | YES  |     | NULL    |                |
+| Stanowisko  | int         | YES  | MUL | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+5.
+mysql> INSERT INTO Pracownik1 (Nazwisko, Imie) VALUES ('Robak', 'Ham');
+Query OK, 1 row affected (0.01 sec)
+6.
+mysql> SELECT * FROM Pracownik1;
++-------------+----------+------+------------+
+| pracownikID | Nazwisko | Imie | Stanowisko |
++-------------+----------+------+------------+
+|           1 | Nowak    | Jan  |       NULL |
+|           2 | Robak    | Ham  |       NULL |
++-------------+----------+------+------------+
+
+mysql> UPDATE Pracownik1
+    -> ;
+7.
+mysql> UPDATE Pracownik1 SET Nazwisko = 'Kowalski' WHERE pracownikID = 1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> DESC Pracownik1
+    -> ;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| pracownikID | int         | NO   | PRI | NULL    | auto_increment |
+| Nazwisko    | varchar(30) | NO   |     | NULL    |                |
+| Imie        | varchar(25) | YES  |     | NULL    |                |
+| Stanowisko  | int         | YES  | MUL | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Pracownik1
+    -> ;
++-------------+----------+------+------------+
+| pracownikID | Nazwisko | Imie | Stanowisko |
++-------------+----------+------+------------+
+|           1 | Kowalski | Jan  |       NULL |
+|           2 | Robak    | Ham  |       NULL |
++-------------+----------+------+------------+
+2 rows in set (0.00 sec)
+8.
+mysql> ALTER TABLE Pracownik  ADD Wynagrodzenie varchar(7);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> DESC Pracownik
+    -> ;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| pracownikID   | int         | NO   | PRI | NULL    | auto_increment |
+| Nazwisko      | varchar(30) | NO   |     | NULL    |                |
+| Imie          | varchar(25) | YES  |     | NULL    |                |
+| nrTelefonu    | varchar(12) | YES  |     | NULL    |                |
+| Wynagrodzenie | varchar(7)  | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+9.
+mysql> DELETE FROM Pracownik1 WHERE Numer_pr=5;
+Query OK, 0 rows affected (0.00 sec)
+mysql> DESC Pracownik1
+    -> ;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| pracownikID | int         | NO   | PRI | NULL    | auto_increment |
+| Nazwisko    | varchar(30) | NO   |     | NULL    |                |
+| Imie        | varchar(25) | YES  |     | NULL    |                |
+| Stanowisko  | int         | YES  | MUL | NULL    |                |
+| Numer_pr    | varchar(10) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
++-------------+----------+------+------------+----------+
+| pracownikID | Nazwisko | Imie | Stanowisko | Numer_pr |
++-------------+----------+------+------------+----------+
+|           1 | Kowalski | Jan  |       NULL | NULL     |
+|           2 | Robak    | Ham  |       NULL | NULL     |
++-------------+----------+------+------------+----------+
+10.
+mysql> INSERT INTO Pracownik (Nazwisko, Imie)  VALUES( 'Byk', 'Bartek');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM Pracownik
+    -> ;
++-------------+----------+--------+------------+---------------+
+| pracownikID | Nazwisko | Imie   | nrTelefonu | Wynagrodzenie |
++-------------+----------+--------+------------+---------------+
+|           1 | Byk      | Bartek | NULL       | NULL          |
++-------------+----------+--------+------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO Pracownik (Nazwisko, Imie)  VALUES( 'Kot', 'Maria');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM Pracownik
+    -> ;
++-------------+----------+--------+------------+---------------+
+| pracownikID | Nazwisko | Imie   | nrTelefonu | Wynagrodzenie |
++-------------+----------+--------+------------+---------------+
+|           1 | Byk      | Bartek | NULL       | NULL          |
+|           2 | Kot      | Maria  | NULL       | NULL          |
++-------------+----------+--------+------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO Pracownik (Nazwisko, Imie)  VALUES( 'Ogon', 'Kasia');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM Pracownik;
++-------------+----------+--------+------------+---------------+
+| pracownikID | Nazwisko | Imie   | nrTelefonu | Wynagrodzenie |
++-------------+----------+--------+------------+---------------+
+|           1 | Byk      | Bartek | NULL       | NULL          |
+|           2 | Kot      | Maria  | NULL       | NULL          |
+|           3 | Ogon     | Kasia  | NULL       | NULL          |
++-------------+----------+--------+------------+---------------+
+3 rows in set (0.00 sec)
+11.
+mysql> DELETE FROM Pracownik WHERE ID=3;
+ERROR 1054 (42S22): Unknown column 'ID' in 'where clause'
+mysql> DELETE FROM Pracownik WHERE 3;
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> SELECT * FROM Pracownik
+    -> ;
+Empty set (0.01 sec)
+
+mysql> DESC Pracownik1
+    -> ;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| pracownikID | int         | NO   | PRI | NULL    | auto_increment |
+| Nazwisko    | varchar(30) | NO   |     | NULL    |                |
+| Imie        | varchar(25) | YES  |     | NULL    |                |
+| Stanowisko  | int         | YES  | MUL | NULL    |                |
+| Numer_pr    | varchar(10) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+12,
+mysql> DROP TABLE Pracownik;
+Query OK, 0 rows affected (0.01 sec)
+mysql> DESC Pracownik1
+    -> ;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| pracownikID | int         | NO   | PRI | NULL    | auto_increment |
+| Nazwisko    | varchar(30) | NO   |     | NULL    |                |
+| Imie        | varchar(25) | YES  |     | NULL    |                |
+| Stanowisko  | int         | YES  | MUL | NULL    |                |
+| Numer_pr    | varchar(10) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+

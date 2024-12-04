@@ -1,0 +1,88 @@
+1.
+mysql> select rodzaj, avg(waga) from kreatura where rodzaj = 'wiking';
++--------+-----------+
+| rodzaj | avg(waga) |
++--------+-----------+
+| wiking |   95.1111 |
++--------+-----------+
+1 row in set (0.00 sec)
+
+mysql>
+2.
+mysql> select avg(waga), count(rodzaj), rodzaj from kreatura group by rodzaj;
++-----------+---------------+----------+
+| avg(waga) | count(rodzaj) | rodzaj   |
++-----------+---------------+----------+
+|   95.1111 |             9 | wiking   |
+| 1050.5000 |             2 | ryba     |
+|    3.0000 |             1 | waz      |
+|    2.0000 |             2 | ptak     |
+|   41.2500 |             4 | wiedzma  |
+|   32.0000 |             1 | malpa    |
+|      NULL |             1 | Poczwara |
+|      NULL |             0 | NULL     |
++-----------+---------------+----------+
+8 rows in set (0.00 sec)
+
+mysql>
+3.
+mysql> select rodzaj,avg(2024 - YEAR(dataUR)) from kreatura group by rodzaj;
++----------+--------------------------+
+| rodzaj   | avg(2024 - YEAR(dataUR)) |
++----------+--------------------------+
+| wiking   |                 353.5556 |
+| ryba     |                 348.5000 |
+| waz      |                 347.0000 |
+| ptak     |                 348.5000 |
+| wiedzma  |                 532.7500 |
+| malpa    |                 352.0000 |
+| Poczwara |                 924.0000 |
+| NULL     |                     NULL |
++----------+--------------------------+
+8 rows in set (0.00 sec)
+4.
+mysql> select  rodzaj, sum(waga * ilosc) from zasob group by rodzaj;
++--------------------+-------------------+
+| rodzaj             | sum(waga * ilosc) |
++--------------------+-------------------+
+| jedzenie           |            239.00 |
+| narzedzie          |             13.00 |
+| NULL               |             61.00 |
+| ubranie            |            323.00 |
+| narzedzie zbrodni  |             26.00 |
+| material budowlany |             90.00 |
+| miejsce wypoczynku |              4.00 |
++--------------------+-------------------+
+7 rows in set (0.00 sec)
+5.
+mysql> select nazwa,  sum(waga * ilosc) / sum(ilosc) from zasob where ilosc >=4 group by nazwa;
++-----------------+--------------------------------+
+| nazwa           | sum(waga * ilosc) / sum(ilosc) |
++-----------------+--------------------------------+
+| banan           |                       1.631579 |
+| figa            |                       1.000000 |
+| bataty          |                       1.000000 |
+| stanik          |                       0.238095 |
+| lisc palmowy    |                       0.100000 |
+| skora geparda   |                      30.000000 |
+| kiel slonia     |                       1.000000 |
+| dzida           |                       2.000000 |
+| pnacza          |                       0.100000 |
+| deski           |                       0.500000 |
+| ogien do ziania |                       1.000000 |
++-----------------+--------------------------------+
+11 rows in set (0.00 sec)
+6.
+mysql> select rodzaj, count(*) as ilosc from zasob group by rodzaj having count(*) >1;
++--------------------+-------+
+| rodzaj             | ilosc |
++--------------------+-------+
+| jedzenie           |     9 |
+| NULL               |     7 |
+| ubranie            |     4 |
+| narzedzie zbrodni  |     3 |
+| material budowlany |     2 |
+| miejsce wypoczynku |     2 |
++--------------------+-------+
+6 rows in set (0.00 sec)
+

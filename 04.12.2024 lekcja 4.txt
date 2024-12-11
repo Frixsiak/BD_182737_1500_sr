@@ -85,4 +85,107 @@ mysql> select rodzaj, count(*) as ilosc from zasob group by rodzaj having count(
 | miejsce wypoczynku |     2 |
 +--------------------+-------+
 6 rows in set (0.00 sec)
+7.
+
+mysql> select nazwa, SUM(ilosc) from ekwipunek inner join kreatura on kreatura.idKreatury = ekwipunek.idKreatury group by nazwa;
++-------------+------------+
+| nazwa       | SUM(ilosc) |
++-------------+------------+
+| Bjorn       |         64 |
+| Brutal      |          4 |
+| Astrid      |          6 |
+| Khorad      |          1 |
+| Ibra        |          2 |
+| Tesciowa    |          5 |
+| Defgard     |         55 |
+| Bjolkolur   |         12 |
+| Drozd       |          1 |
+| Szczeki     |          1 |
+| Twoja Stara |         34 |
++-------------+------------+
+11 rows in set (0.00 sec)
+12.
+mysql> select kreatura.nazwa, zasob.nazwa from ((kreatura inner join ekwipunek on kreatura.idKreatury = ekwipunek.idKreatury) inner join zasob on zasob.idZasobu  = ekwipunek.idZasobu);
++-------------+-------------------+
+| nazwa       | nazwa             |
++-------------+-------------------+
+| Astrid      | kokos             |
+| Bjorn       | kokos             |
+| Twoja Stara | siekiera          |
+| Defgard     | siekiera          |
+| Brutal      | siekiera          |
+| Bjorn       | siekiera          |
+| Brutal      | kokos             |
+| Szczeki     | opos              |
+| Bjorn       | stanik            |
+| Astrid      | stanik            |
+| Drozd       | stanik            |
+| Bjorn       | buty              |
+| Bjorn       | lisc palmowy      |
+| Defgard     | skora geparda     |
+| Ibra        | skora geparda     |
+| Defgard     | kiel slonia       |
+| Khorad      | kiel slonia       |
+| Bjorn       | topor             |
+| Ibra        | dzida             |
+| Astrid      | luk               |
+| Defgard     | pnacza            |
+| Bjolkolur   | pnacza            |
+| Bjolkolur   | deski             |
+| Bjorn       | hamak             |
+| Tesciowa    | chatka na drzewie |
+| Tesciowa    | nie wiadomo co    |
+| Tesciowa    | ogien do ziania   |
+| Tesciowa    | miotla            |
++-------------+-------------------+
+28 rows in set (0.00 sec)
+13.
+mysql> select kreatura.nazwa, ekwipunek.idEkwipunku from kreatura left join ekwipunek on kreatura.idKreatury = ekwipunek.idKreatury where ekwipunek.idEkwipunku is null;
++----------------------------+-------------+
+| nazwa                      | idEkwipunku |
++----------------------------+-------------+
+| Birgun                     |        NULL |
+| Nemo                       |        NULL |
+| Loko                       |        NULL |
+| Ara                        |        NULL |
+| Tiki                       |        NULL |
+| Dziadek                    |        NULL |
+| sztuczna szczeka tesciowej |        NULL |
+| Tesciowa dziadka           |        NULL |
+| Gollum                     |        NULL |
+| Trollik                    |        NULL |
+| Silacz                     |        NULL |
+| Babajaga                   |        NULL |
++----------------------------+-------------+
+12 rows in set (0.00 sec)
+14.
+mysql> select kreatura.nazwa, zasob.nazwa,  YEAR(kreatura.dataUr) from ((kreatura inner join ekwipunek on ekwipunek.idKreatury = kreatura.idKreatury)inner join zasob on zasob.idZasobu = ekwipunek.idZasobu) where kreatura.rodzaj = 'wiking
+' and YEAR(dataUr) between 1670 and 1680;
++-----------+---------------+-----------------------+
+| nazwa     | nazwa         | YEAR(kreatura.dataUr) |
++-----------+---------------+-----------------------+
+| Astrid    | kokos         |                  1677 |
+| Bjorn     | kokos         |                  1670 |
+| Defgard   | siekiera      |                  1674 |
+| Brutal    | siekiera      |                  1672 |
+| Bjorn     | siekiera      |                  1670 |
+| Brutal    | kokos         |                  1672 |
+| Bjorn     | stanik        |                  1670 |
+| Astrid    | stanik        |                  1677 |
+| Bjorn     | buty          |                  1670 |
+| Bjorn     | lisc palmowy  |                  1670 |
+| Defgard   | skora geparda |                  1674 |
+| Ibra      | skora geparda |                  1674 |
+| Defgard   | kiel slonia   |                  1674 |
+| Khorad    | kiel slonia   |                  1671 |
+| Bjorn     | topor         |                  1670 |
+| Ibra      | dzida         |                  1674 |
+| Astrid    | luk           |                  1677 |
+| Defgard   | pnacza        |                  1674 |
+| Bjolkolur | pnacza        |                  1676 |
+| Bjolkolur | deski         |                  1676 |
+| Bjorn     | hamak         |                  1670 |
++-----------+---------------+-----------------------+
+21 rows in set (0.06 sec)
+
 

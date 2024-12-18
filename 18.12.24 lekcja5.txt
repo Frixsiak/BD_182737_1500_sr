@@ -1,0 +1,26 @@
+1.
+mysql> select kreatura.nazwa  from kreatura left join uczestnicy on uczestnicy.id_uczestnika = kreatura.idKreatury where uczestnicy.id_uczestnika IS NULL;
++-------------+
+| nazwa       |
++-------------+
+| Brutal      |
+| Defgard     |
+| Ara         |
+| Gollum      |
+| Trollik     |
+| Silacz      |
+| Twoja Stara |
+| Babajaga    |
++-------------+
+8 rows in set (0.00 sec)
+
+2.
+mysql> select wyprawa.nazwa, sum(ekwipunek.ilosc) from  uczestnicy  inner join wyprawa on wyprawa.id_wyprawy = uczestnicy.id_wyprawy inner join kreatura on kreatura.idKreatury = uczestnicy.id_uczestnika inner join ekwipunek on ekwipunek.idKreatury = kreatura.idKreatury inner join zasob on zasob.idZasobu = ekwipunek.idZasobu  group by wyprawa.nazwa;
++-----------------------+----------------------+
+| nazwa                 | sum(ekwipunek.ilosc) |
++-----------------------+----------------------+
+| Nakarm kanibala       |                   84 |
+| Polowanie na tesciowa |                   68 |
+| Poszukiwanie ziecia   |                    5 |
++-----------------------+----------------------+
+3 rows in set (0.00 sec)

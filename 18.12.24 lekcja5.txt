@@ -24,3 +24,39 @@ mysql> select wyprawa.nazwa, sum(ekwipunek.ilosc) from  uczestnicy  inner join w
 | Poszukiwanie ziecia   |                    5 |
 +-----------------------+----------------------+
 3 rows in set (0.00 sec)
+3.
+mysql> select wyprawa.nazwa, count(uczestnicy.id_uczestnika),group_concat( kreatura.nazwa)   from wyprawa left join uczestnicy on uczestnicy.id_wyprawy = wyprawa.id_wyprawy inner join kreatura on kreatura.idKreatury  = uczestnicy.id_uczestnika  group by wyprawa.nazwa;
++-----------------------+---------------------------------+----------------------------------------------------------------+
+| nazwa                 | count(uczestnicy.id_uczestnika) | group_concat( kreatura.nazwa)                                  |
++-----------------------+---------------------------------+----------------------------------------------------------------+
+| Nakarm kanibala       |                               6 | Bjorn,Khorad,Astrid,Dziadek,Bjolkolur,Drozd                    |
+| Polowanie na tesciowa |                               7 | Bjorn,Dziadek,Szczeki,Drozd,Loko,Ibra,Birgun                   |
+| Poszukiwanie ziecia   |                               5 | Nemo,Tesciowa,Tiki,sztuczna szczeka tesciowej,Tesciowa dziadka |
++-----------------------+---------------------------------+----------------------------------------------------------------+
+3 rows in set (0.00 sec)
+4.
+mysql> select  wyprawa.nazwa , sektor.nazwa, kreatura.nazwa , etapy.kolejnosc, wyprawa.data_rozpoczecia   from etapy inner join sektor on etapy.sektor = sektor.id_sektora inner join wyprawa on wyprawa.id_wyprawy = etapy.idWyprawy inner join kreatura on kreatura.idKreatury = wyprawa.kierownik order by wyprawa.data_rozpoczecia ,etapy.kolejnosc;
++-----------------------+--------------------+----------+-----------+------------------+
+| nazwa                 | nazwa              | nazwa    | kolejnosc | data_rozpoczecia |
++-----------------------+--------------------+----------+-----------+------------------+
+| Poszukiwanie ziecia   | Pieczara tesciowej | Tesciowa |         1 | 1700-08-02       |
+| Nakarm kanibala       | Chatka dziadka     | Dziadek  |         1 | 1700-08-02       |
+| Poszukiwanie ziecia   | Wulkan             | Tesciowa |         2 | 1700-08-02       |
+| Nakarm kanibala       | Pieczara tesciowej | Dziadek  |         2 | 1700-08-02       |
+| Poszukiwanie ziecia   | Wioska Kanibali    | Tesciowa |         3 | 1700-08-02       |
+| Nakarm kanibala       | Zatoka rekinow     | Dziadek  |         3 | 1700-08-02       |
+| Poszukiwanie ziecia   | Pieprzne pole      | Tesciowa |         4 | 1700-08-02       |
+| Nakarm kanibala       | Wulkan             | Dziadek  |         4 | 1700-08-02       |
+| Poszukiwanie ziecia   | Chatka dziadka     | Tesciowa |         5 | 1700-08-02       |
+| Nakarm kanibala       | Wioska Kanibali    | Dziadek  |         5 | 1700-08-02       |
+| Polowanie na tesciowa | Kokosowa plaza     | Bjorn    |         1 | 1700-08-04       |
+| Polowanie na tesciowa | Chatka dziadka     | Bjorn    |         2 | 1700-08-04       |
+| Polowanie na tesciowa | Wulkan             | Bjorn    |         3 | 1700-08-04       |
+| Polowanie na tesciowa | Zatoka rekinow     | Bjorn    |         4 | 1700-08-04       |
+| Polowanie na tesciowa | Pieczara tesciowej | Bjorn    |         5 | 1700-08-04       |
++-----------------------+--------------------+----------+-----------+------------------+
+15 rows in set (0.00 sec)
+
+
+
+
